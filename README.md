@@ -2,6 +2,18 @@
 
 Version-controlled memory system for LLM agents. Gives AI agents persistent, structured memory using Git-like operations.
 
+## Research Basis
+
+GitMem is inspired by the Git Context Controller (GCC) paper:
+
+Junde Wu, Minhao Hu, Jiayuan Zhu, Jiazhen Pan, Yuyuan Liu, Min Xu, and Yueming Jin.
+"Git Context Controller: Manage the Context of LLM-based Agents like Git."
+arXiv:2508.00031, 2025. https://arxiv.org/abs/2508.00031
+
+The paper frames agent memory as a versioned workspace with explicit `COMMIT`, `BRANCH`,
+`MERGE`, and `CONTEXT` operations. GitMem adapts that core idea into a lightweight Python
+package and MCP server you can run locally.
+
 ## The Problem
 
 LLM agents working on long tasks face:
@@ -154,6 +166,28 @@ uv sync --all-extras
 uv run pytest tests/ -v
 uv run ruff check src/ tests/
 ```
+
+Build a local distribution:
+
+```bash
+uv build
+```
+
+Run the deterministic demo workflow used for local testing and screen recordings:
+
+```bash
+uv run python scripts/demo_workflow.py --root /tmp/gitmem-demo
+```
+
+To capture a live LLM-powered merge on video, provide an API key and enable live mode:
+
+```bash
+ANTHROPIC_API_KEY="sk-ant-..." uv run python scripts/demo_workflow.py \
+  --root /tmp/gitmem-live-demo \
+  --live-llm
+```
+
+The Screen Studio recording plan lives in [`docs/SCREEN_STUDIO_DEMO.md`](docs/SCREEN_STUDIO_DEMO.md).
 
 ## License
 
